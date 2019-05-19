@@ -10,6 +10,8 @@
 
 (with-eval-after-load 'org
   (add-to-list 'org-babel-load-languages '(ipython . t))
+  (add-to-list 'org-babel-load-languages '(python . t))
+
   ;; 不再询问是否允许执行代码块
   (setq org-confirm-babel-evaluate nil)
   ;; display/update images in the buffer after I evaluate

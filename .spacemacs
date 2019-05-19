@@ -33,26 +33,27 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(yaml
-     html
-     helm
+   '(
+     (markdown :variables markdown-live-preview-engine 'vmd)
      auto-completion
      better-defaults
      colors
      emacs-lisp
      git
+     helm
+     html
      javascript
-     (markdown :variables markdown-live-preview-engine 'vmd)
      multiple-cursors
-     treemacs
      org
+     rust
+     treemacs
+     yaml
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;; (spell-checking :variables enable-flyspell-auto-completion t)
      ;; syntax-checking
      ;; version-control
-     perfect-margin
      )
 
    ;; List of additional packages that will be installed without being
@@ -72,6 +73,7 @@ This function should only modify configuration layer settings."
                                       ob-ipython
                                       pangu-spacing
                                       minimap
+                                      perfect-margin
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -195,7 +197,9 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(doom-dracula)
+   dotspacemacs-themes '(doom-molokai
+                         doom-solarized-light
+                         doom-dracula)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -305,7 +309,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
-   dotspacemacs-fullscreen-at-startup nil
+   dotspacemacs-fullscreen-at-startup t
 
    ;; If non-nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
@@ -450,9 +454,9 @@ It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;; Network proxy
   (setq url-debug t)
-  (setq url-proxy-services '(("no_proxy" . "127.0.0.1")
-                             ("http" . "127.0.0.1:1087")
-                             ("https" . "127.0.0.1:1087")))
+  ;; (setq url-proxy-services '(("no_proxy" . "127.0.0.1")
+  ;;                            ("http" . "127.0.0.1:1087")
+  ;;                            ("https" . "127.0.0.1:1087")))
   ;; zsh shell config
   (setq shell-file-name "/usr/local/bin/zsh")
   (setenv "SHELL" "/usr/local/bin/zsh")
@@ -478,8 +482,9 @@ before packages are loaded."
   ;; configurations for using hexo-renderer-org to generate hexo static pages
   (load "~/.emacs.d/config-hexo.el")
   ;; load programming languages configuration
-  ;; (load "~/.emacs.d/config-python.el")
-  ;; (load "~/.emacs.d/config-js.el")
+  (load "~/.emacs.d/config-elisp.el")
+  (load "~/.emacs.d/config-python.el")
+  (load "~/.emacs.d/config-js.el")
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -496,7 +501,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (minimap yasnippet-snippets yaml-mode ws-butler writeroom-mode winum which-key web-mode web-beautify volatile-highlights vmd-mode vi-tilde-fringe uuidgen use-package-ensure-system-package unfill treemacs-projectile toc-org tagedit symon switch-window string-inflection spaceline-all-the-icons solaire-mode smeargle slim-mode shrink-whitespace scss-mode sass-mode restart-emacs rainbow-mode rainbow-identifiers rainbow-delimiters pug-mode prettier-js popwin persp-mode perfect-margin pcre2el password-generator paradox pangu-spacing overseer orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file ob-ipython nameless mwim move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode link-hint json-navigator json-mode js2-refactor js-doc indent-guide impatient-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy font-lock+ flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu emmet-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-themes doom-modeline diminish define-word counsel-projectile company-web company-tern company-statistics column-enforce-mode color-identifiers-mode cnfonts clean-aindent-mode centered-cursor-mode auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line ac-ispell))))
+    (perfect-margin yasnippet-snippets yaml-mode ws-butler writeroom-mode winum which-key web-mode web-beautify volatile-highlights vmd-mode vi-tilde-fringe uuidgen use-package-ensure-system-package unfill treemacs-projectile toml-mode toc-org tagedit symon switch-window string-inflection stickyfunc-enhance srefactor spaceline-all-the-icons solaire-mode smeargle slim-mode shrink-whitespace scss-mode sass-mode restart-emacs rainbow-mode rainbow-identifiers rainbow-delimiters racer pug-mode prettier-js popwin persp-mode pcre2el password-generator paradox pangu-spacing overseer orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file ob-ipython nameless mwim move-text mmm-mode minimap markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode link-hint json-navigator json-mode js2-refactor js-doc indent-guide impatient-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy font-lock+ flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu emmet-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-themes doom-modeline diminish define-word counsel-projectile company-web company-tern company-statistics column-enforce-mode color-identifiers-mode cnfonts clean-aindent-mode centered-cursor-mode cargo auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -124,6 +124,8 @@ Version 2016-01-08"
 ;; editing configuration ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(setq-default fill-column 132)
+
 ;; enable C-u C-SPC C-SPC ... to repeatly pop mark
 (setq set-mark-command-repeat-pop t)
 
@@ -166,6 +168,13 @@ Version 2016-01-08"
 
 (display-time-mode t)
 
+(setq redisplay-dont-pause t)
+
+(defun enable-rainbow-mode-hook ()
+  (rainbow-mode 1))
+
+(add-hook 'prog-mode-hook #'enable-rainbow-mode-hook)
+
 ;; configurations for emacs-plus installed by brew
 (when (eq system-type 'darwin)
   (add-to-list 'default-frame-alist
@@ -180,6 +189,7 @@ Version 2016-01-08"
   :config
   (doom-themes-visual-bell-config)
   (doom-themes-org-config)
+  (doom-themes-treemacs-config)
   )
 
 ;; make visited file buffer different from special buffers
@@ -203,12 +213,20 @@ Version 2016-01-08"
 ;; center buffers
 (use-package perfect-margin
   :custom
-  (perfect-margin-visible-width 128)
+  (perfect-margin-visible-width 132)
   :config
   (perfect-margin-mode t)
-  )
+  (dolist (margin '("<left-margin> " "<right-margin> "))
+    (global-set-key (kbd (concat margin "<mouse-1>")) 'ignore)
+    (global-set-key (kbd (concat margin "<mouse-3>")) 'ignore)
+    (dolist (multiple '("" "double-" "triple-"))
+      (global-set-key (kbd (concat margin "<" multiple "wheel-up>")) 'mwheel-scroll)
+      (global-set-key (kbd (concat margin "<" multiple "wheel-down>")) 'mwheel-scroll)
+      )))
 
+;; minimap
 (with-eval-after-load 'minimap
+
   (defadvice switch-window--list (after swtich-window--list-exclude-minimap nil activate)
     "Exclude minimap window from window list available to swtich."
     (setq ad-return-value
@@ -216,8 +234,7 @@ Version 2016-01-08"
                 (mapcar (lambda (win)
                           (let ((name (buffer-name (window-buffer win))))
                             (if (string-match minimap-buffer-name name) nil win)))
-                        ad-return-value))))
-  )
+                        ad-return-value)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; package configuration ;;

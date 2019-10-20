@@ -10,4 +10,5 @@
   (dolist (item '(("p" . "src ipython")
                   ("el" . "src emacs-lisp")))
     (add-to-list 'org-structure-template-alist item))
-  )
+  (require 'org-re-reveal)
+  (setq org-re-reveal-root "file:///Users/wangjianzhi/bin/reveal.js-3.8.0"))

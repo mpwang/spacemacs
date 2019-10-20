@@ -248,9 +248,10 @@ Version 2016-01-08"
         dired-use-ls-dired t))
 
 ;; magit
-(use-package magit
-  :init
-  (setq-default git-magit-status-fullscreen t))
+(with-eval-after-load 'magit
+  (use-package magit
+    :init
+    (setq-default git-magit-status-fullscreen t)))
 
 (use-package markdown-mode
   :ensure-system-package markdown)
@@ -258,5 +259,4 @@ Version 2016-01-08"
 (use-package multiple-cursors
   :config
   (bind-key "C->" 'mc/mark-next-like-this)
-  (bind-key "C-<" 'mc/mark-previous-like-this)
-  )
+  (bind-key "C-<" 'mc/mark-previous-like-this))
